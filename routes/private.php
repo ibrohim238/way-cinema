@@ -1,5 +1,6 @@
 <?php
 
+use App\Versions\Private\Http\Controllers\CommentController;
 use App\Versions\Private\Http\Controllers\SerialController;
 use App\Versions\Private\Http\Controllers\LogoutController;
 use App\Versions\Private\Http\Controllers\ProfileController;
@@ -30,4 +31,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth:api', 
 Route::apiResource('serials', SerialController::class)
     ->only(['index', 'show']);
 Route::apiResource('categories', SerialController::class)
+    ->only(['index', 'show']);
+Route::apiResource('comments', CommentController::class)
     ->only(['index', 'show']);

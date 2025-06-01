@@ -18,6 +18,110 @@
         }
     ],
     "paths": {
+        "/comments": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Список комментариев",
+                "description": "Список комментариев",
+                "operationId": "ffda8f915443b696d90c4515ae1fa7f5",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CommentResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        },
+        "/comments/{comment}": {
+            "get": {
+                "tags": [
+                    "Comments"
+                ],
+                "summary": "Просмотр комментария",
+                "description": "Просмотр комментария",
+                "operationId": "540d3ba939cd564c759e6b92de79270b",
+                "parameters": [
+                    {
+                        "name": "comment",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/CommentResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        },
         "/user": {
             "get": {
                 "tags": [
@@ -91,6 +195,110 @@
                         "description": "Not found."
                     }
                 }
+            }
+        },
+        "/serials": {
+            "get": {
+                "tags": [
+                    "Serials"
+                ],
+                "summary": "Список сериалов",
+                "description": "Список сериалов",
+                "operationId": "63f04829abb19b75fc704cbcb684fee1",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/SerialResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        },
+        "/serials/{serial}": {
+            "get": {
+                "tags": [
+                    "Serials"
+                ],
+                "summary": "Просмотр сериала",
+                "description": "Просмотр сериала",
+                "operationId": "6d3cc55d219a79856f9c180087f08546",
+                "parameters": [
+                    {
+                        "name": "serial",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/SerialResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
             }
         },
         "/teams": {
@@ -535,6 +743,51 @@
                 },
                 "type": "object"
             },
+            "CommentResource": {
+                "title": "CommentResource",
+                "description": "Comment Resource",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "Идентификатор комментария",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "text": {
+                        "title": "text",
+                        "description": "Текст комментария",
+                        "type": "string",
+                        "example": "Отличная статья!"
+                    },
+                    "children": {
+                        "title": "children",
+                        "description": "Вложенные ответы",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CommentResource"
+                        }
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "Дата и время создания",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2024-04-01 12:34:56"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "Дата и время последнего обновления",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2024-04-02 14:00:00"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CommentResource"
+                }
+            },
             "MediaResource": {
                 "title": "MediaResource",
                 "description": "Media Resource",
@@ -596,6 +849,61 @@
                 "type": "object",
                 "xml": {
                     "name": "Role Resource"
+                }
+            },
+            "SerialResource": {
+                "title": "SerialResource",
+                "description": "Serial Resource",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "Идентификатор сериала",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Название сериала",
+                        "type": "string",
+                        "example": "Breaking Bad"
+                    },
+                    "description": {
+                        "title": "description",
+                        "description": "Описание сериала",
+                        "type": "string",
+                        "example": "История учителя химии, ставшего наркобароном"
+                    },
+                    "type": {
+                        "title": "type",
+                        "description": "Тип контента",
+                        "type": "string",
+                        "example": "serial"
+                    },
+                    "rating": {
+                        "title": "rating",
+                        "description": "Рейтинг сериала",
+                        "type": "string",
+                        "format": "float"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "Дата и время создания",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2024-01-15 18:20:00"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "Дата и время последнего обновления",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2024-02-01 12:00:00"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "SerialResource"
                 }
             },
             "TeamResource": {
@@ -718,6 +1026,14 @@
         {
             "name": "UserMedia",
             "description": "Файлы"
+        },
+        {
+            "name": "Comments",
+            "description": "Comments"
+        },
+        {
+            "name": "Serials",
+            "description": "Serials"
         },
         {
             "name": "Teams",
