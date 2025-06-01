@@ -1,5 +1,6 @@
 <?php
 
+use App\Versions\Private\Http\Controllers\SerialController;
 use App\Versions\Private\Http\Controllers\LogoutController;
 use App\Versions\Private\Http\Controllers\ProfileController;
 use App\Versions\Private\Http\Controllers\RegisterController;
@@ -22,3 +23,6 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth:api', 
     Route::apiResource('media', UserMediaController::class)
         ->only(['index', 'store', 'destroy']);
 });
+
+Route::apiResource('films', SerialController::class)
+    ->only(['index', 'show']);
