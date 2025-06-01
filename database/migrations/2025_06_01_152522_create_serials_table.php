@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('serials', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->string('description')->nullable();
             $table->tinyInteger('type');
             $table->string('rating');

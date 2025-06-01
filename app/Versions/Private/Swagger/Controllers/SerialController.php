@@ -3,7 +3,7 @@
 namespace App\Versions\Private\Swagger\Controllers;
 
 use App\Versions\Private\Swagger\Pagination;
-use App\Versions\Private\Swagger\Resources\FilmResource;
+use App\Versions\Private\Swagger\Resources\SerialResource;
 use App\Versions\Private\Swagger\Responses\NotFoundResponse;
 use App\Versions\Private\Swagger\Responses\UnauthorizedResponse;
 use OpenApi\Attributes as OA;
@@ -41,7 +41,7 @@ interface SerialController
                 new OA\Property(
                     property: 'data',
                     type: 'array',
-                    items: new OA\Items(ref: FilmResource::class),
+                    items: new OA\Items(ref: SerialResource::class),
                 ),
                 new OA\Property(
                     property: 'meta',
@@ -76,7 +76,7 @@ interface SerialController
             properties: [
                 new OA\Property(
                     property: 'data',
-                    ref: FilmResource::class,
+                    ref: SerialResource::class,
                 ),
             ],
         ),

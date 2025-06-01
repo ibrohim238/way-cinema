@@ -4,6 +4,7 @@ use App\Versions\Private\Http\Controllers\SerialController;
 use App\Versions\Private\Http\Controllers\LogoutController;
 use App\Versions\Private\Http\Controllers\ProfileController;
 use App\Versions\Private\Http\Controllers\RegisterController;
+use App\Versions\Private\Http\Controllers\TeamController;
 use App\Versions\Private\Http\Controllers\UserMediaController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\AccessTokenController;
@@ -22,7 +23,11 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => ['auth:api', 
     Route::get('', ProfileController::class)->name('profile');
     Route::apiResource('media', UserMediaController::class)
         ->only(['index', 'store', 'destroy']);
+    Route::apiResource('teams', TeamController::class)
+        ->only(['index', 'show']);
 });
 
-Route::apiResource('films', SerialController::class)
+Route::apiResource('serials', SerialController::class)
+    ->only(['index', 'show']);
+Route::apiResource('categories', SerialController::class)
     ->only(['index', 'show']);
