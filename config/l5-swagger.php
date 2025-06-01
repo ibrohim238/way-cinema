@@ -3,6 +3,44 @@
 return [
     'default'        => 'private',
     'documentations' => [
+        'admin' => [
+            'api' => [
+                'title' => 'Api Admin',
+            ],
+
+            'routes' => [
+                /*
+                 * Route for accessing api documentation interface
+                */
+                'api'             => 'api/private/admin/documentation',
+                'docs'            => '/api/private/admin/',
+                'oauth2_callback' => '/api/private/admin/callback',
+            ],
+            'paths' => [
+                /*
+                 * File name of the generated json documentation file
+                */
+                'docs_json' => 'api-docs-admin-swagger.json',
+
+                /*
+                 * File name of the generated YAML documentation file
+                */
+                'docs_yaml' => 'api-docs-admin-swagger.yaml',
+
+                /*
+                * Set this to `json` or `yaml` to determine which documentation file to use in UI
+                */
+                'format_to_use_for_docs' => env('L5_FORMAT_TO_USE_FOR_DOCS', 'json'),
+
+                /*
+                 * Absolute paths to directory containing the swagger annotations are stored.
+                */
+                'annotations' => [
+                    base_path('app') . "/Versions/Admin/",
+                ],
+
+            ],
+        ],
         'private' => [
             'api' => [
                 'title' => 'Api Private',

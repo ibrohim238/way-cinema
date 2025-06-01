@@ -93,6 +93,110 @@
                 }
             }
         },
+        "/teams": {
+            "get": {
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Список команд",
+                "description": "Список команд",
+                "operationId": "0d7e0df6c59dea16f010dc561a6ad020",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TeamResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        },
+        "/teams/{team}": {
+            "get": {
+                "tags": [
+                    "Teams"
+                ],
+                "summary": "Просмотр команды",
+                "description": "Просмотр команды",
+                "operationId": "bd5654fdfab7e82594933644c1d470aa",
+                "parameters": [
+                    {
+                        "name": "team",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TeamResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        },
         "/oauth/token": {
             "get": {
                 "tags": [
@@ -494,6 +598,49 @@
                     "name": "Role Resource"
                 }
             },
+            "TeamResource": {
+                "title": "TeamResource",
+                "description": "Team Resource",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "Идентификатор команды",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Название команды",
+                        "type": "string",
+                        "example": "Development"
+                    },
+                    "owner_id": {
+                        "title": "owner_id",
+                        "description": "идентификатор владельца",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "description": "Дата и время создания",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2024-05-20 14:30:00"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "Дата и время последнего обновления",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2024-05-25 09:15:00"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "TeamResource"
+                }
+            },
             "UserResource": {
                 "title": "ProductResource",
                 "description": "Product Resource",
@@ -571,6 +718,10 @@
         {
             "name": "UserMedia",
             "description": "Файлы"
+        },
+        {
+            "name": "Teams",
+            "description": "Teams"
         }
     ]
 }

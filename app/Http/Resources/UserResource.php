@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Versions\Private\Http\Resources;
+namespace App\Http\Resources;
 
 use App\Http\Resources\JsonResource;
+use App\Http\Resources\RoleResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 /* @mixin User */
-class UserResource extends JsonResource
+final class UserResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
