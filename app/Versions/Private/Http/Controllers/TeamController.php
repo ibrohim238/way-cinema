@@ -18,7 +18,8 @@ class TeamController
             ->execute(
                 $user,
                 $request,
-            );
+            )
+            ->paginate($request->get('limit', 15));
 
         return TeamResource::collection($teams);
     }

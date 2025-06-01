@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\SerialTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
@@ -36,5 +37,10 @@ class Serial extends Model implements HasMedia
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function allowedTeams(): BelongsToMany
+    {
+        return $this->belongsToMany(Team::class);
     }
 }

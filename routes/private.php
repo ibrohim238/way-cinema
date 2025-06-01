@@ -32,5 +32,4 @@ Route::apiResource('serials', SerialController::class)
     ->only(['index', 'show']);
 Route::apiResource('categories', SerialController::class)
     ->only(['index', 'show']);
-Route::apiResource('comments', CommentController::class)
-    ->only(['index', 'show']);
+Route::apiResource('comments', CommentController::class);

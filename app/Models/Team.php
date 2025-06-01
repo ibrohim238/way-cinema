@@ -25,4 +25,9 @@ class Team extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
+
+    public function allowedSerials(): void
+    {
+        $this->belongsToMany(Serial::class);
+    }
 }
