@@ -1,0 +1,576 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "api-ord documentation",
+        "description": "Private Api docs",
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "private"
+    },
+    "servers": [
+        {
+            "url": "/api/private"
+        }
+    ],
+    "paths": {
+        "/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Профиль",
+                "description": "Профиль",
+                "operationId": "72fbe1ed9dd4bcf26cfb74026be293c9",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found."
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "OAuth"
+                ],
+                "summary": "Регистрация",
+                "description": "Регистрация",
+                "operationId": "3a53c20befcb85d550b783eca6b0114a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found."
+                    }
+                }
+            }
+        },
+        "/oauth/token": {
+            "get": {
+                "tags": [
+                    "OAuth"
+                ],
+                "summary": "Получить токен",
+                "description": "Получить токен",
+                "operationId": "5fab1d00d05163bea2ca2268e2561967",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TokenRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found."
+                    }
+                }
+            }
+        },
+        "/oauth/logout": {
+            "delete": {
+                "tags": [
+                    "OAuth"
+                ],
+                "summary": "Отозвать access-токен пользователя",
+                "description": "Отозвать access-токен пользователя",
+                "operationId": "798f5a815a1ab1373c6fff791c18a2ce",
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/user/media": {
+            "get": {
+                "tags": [
+                    "UserMedia"
+                ],
+                "summary": "Список медиа пользователя",
+                "description": "Список медиа пользователя",
+                "operationId": "6588845938c73e89de36c0244fef4669",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/MediaResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/Pagination"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        },
+        "/user/media/": {
+            "post": {
+                "tags": [
+                    "UserMedia"
+                ],
+                "summary": "Добавить медиа",
+                "description": "Добавить медиа",
+                "operationId": "ec2171fd719a04308bc3bc6c304fa1a6",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "media[]"
+                                ],
+                                "properties": {
+                                    "media[]": {
+                                        "description": "Файлы",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/MediaResource"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        },
+        "/user/media/{id}": {
+            "delete": {
+                "tags": [
+                    "UserMedia"
+                ],
+                "summary": "Удалить медиа",
+                "description": "Удалить медиа",
+                "operationId": "c438a176f02f94564921a3a76238c14e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    },
+                    "404": {
+                        "description": "Not found."
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "api-key": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Pagination": {
+                "title": "Pagination",
+                "description": "Pagination",
+                "properties": {
+                    "current_page": {
+                        "title": "current_page",
+                        "description": "current_page",
+                        "type": "integer"
+                    },
+                    "from": {
+                        "title": "from",
+                        "description": "from",
+                        "type": "integer"
+                    },
+                    "last_page": {
+                        "title": "last_page",
+                        "description": "last_page",
+                        "type": "integer"
+                    },
+                    "path": {
+                        "title": "path",
+                        "description": "path",
+                        "type": "string"
+                    },
+                    "per_page": {
+                        "title": "per_page",
+                        "description": "per_page",
+                        "type": "integer"
+                    },
+                    "to": {
+                        "title": "to",
+                        "description": "to",
+                        "type": "integer"
+                    },
+                    "total": {
+                        "title": "total",
+                        "description": "total",
+                        "type": "integer"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Pagination"
+                }
+            },
+            "RegisterRequest": {
+                "title": "Register request",
+                "description": "Register request body data",
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "email"
+                ],
+                "properties": {
+                    "first_name": {
+                        "title": "first_name",
+                        "description": "Имя",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "title": "last_name",
+                        "description": "Фамилия",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Почта",
+                        "type": "string"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Пароль",
+                        "type": "string"
+                    },
+                    "password_confirmation": {
+                        "title": "password_confirmation",
+                        "description": "Подтверждение пароля",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "TokenRequest": {
+                "title": "Token request",
+                "description": "Token request body data",
+                "required": [
+                    "first_name",
+                    "last_name",
+                    "email"
+                ],
+                "properties": {
+                    "grant_type": {
+                        "title": "grant_type",
+                        "description": "Способ получения токена",
+                        "type": "string",
+                        "enum": [
+                            "refresh_token",
+                            "password"
+                        ]
+                    },
+                    "client_id": {
+                        "title": "client_id",
+                        "description": "Идентификатор приложения",
+                        "type": "integer"
+                    },
+                    "client_secret": {
+                        "title": "client_secret",
+                        "description": "Секретный ключ приложения",
+                        "type": "string"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Пароль",
+                        "type": "string"
+                    },
+                    "refresh_token": {
+                        "title": "refresh_token",
+                        "description": "refresh_token",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "MediaResource": {
+                "title": "MediaResource",
+                "description": "Media Resource",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "Идентификатор",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "Название",
+                        "type": "string",
+                        "example": "Владимир"
+                    },
+                    "collection_name": {
+                        "title": "collection_name",
+                        "description": "collection name",
+                        "type": "string",
+                        "example": "default"
+                    },
+                    "disk": {
+                        "title": "disk",
+                        "description": "disk",
+                        "type": "string",
+                        "example": "private "
+                    },
+                    "url": {
+                        "title": "url",
+                        "description": "url",
+                        "type": "string",
+                        "example": "http://localhost"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Создана в",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Media Resource"
+                }
+            },
+            "RoleResource": {
+                "title": "RoleResource",
+                "description": "Role Resource",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Название",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Role Resource"
+                }
+            },
+            "UserResource": {
+                "title": "ProductResource",
+                "description": "Product Resource",
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "Идентификатор",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "first_name": {
+                        "title": "first_name",
+                        "description": "Имя",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "title": "last_name",
+                        "description": "Фамилия",
+                        "type": "string"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "Почта",
+                        "type": "string"
+                    },
+                    "roles": {
+                        "title": "roles",
+                        "description": "Роли",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RoleResource"
+                        }
+                    },
+                    "created_at": {
+                        "title": "сreated_at",
+                        "description": "Создана в",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "description": "Обновлена в",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Platform Resource"
+                }
+            }
+        },
+        "securitySchemes": {
+            "api-key": {
+                "type": "http",
+                "name": "Authorization",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "OAuth",
+            "description": "Авторизация"
+        },
+        {
+            "name": "User",
+            "description": "Профиль"
+        },
+        {
+            "name": "UserMedia",
+            "description": "Файлы"
+        }
+    ]
+}

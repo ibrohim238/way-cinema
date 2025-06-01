@@ -23,6 +23,8 @@ use OpenApi\Attributes as OA;
     bearerFormat: 'JWT',
     scheme: 'bearer',
 )]
+#[OA\Tag(name: 'OAuth', description: 'Авторизация')]
+#[OA\Tag(name: 'User', description: 'Профиль')]
 #[OA\Tag(name: 'UserMedia', description: 'Файлы')]
 abstract class Controller extends BaseController
 {
